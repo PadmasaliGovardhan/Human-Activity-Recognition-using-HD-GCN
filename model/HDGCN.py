@@ -9,13 +9,12 @@ from einops import rearrange, repeat
 from einops.layers.torch import Rearrange
 
 from graph.tools import get_groups
+import importlib
 
 def import_class(name):
-    components = name.split('.')
-    mod = __import__(components[0])
-    for comp in components[1:]:
-        mod = getattr(mod, comp)
-    return mod
+    module_name, class_name = name.rsplit('.', 1)
+    module = importlib.import_module(module_name)
+    return getattr(module, class_name)
 
 
 def conv_branch_init(conv, branches):
