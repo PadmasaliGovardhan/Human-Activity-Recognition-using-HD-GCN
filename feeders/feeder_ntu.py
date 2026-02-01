@@ -57,8 +57,16 @@ class Feeder(Dataset):
             self.sample_name = ['test_' + str(i) for i in range(len(self.data))]
         else:
             raise NotImplementedError('data split only supports train/test')
-        N, T, _ = self.data.shape
-        self.data = self.data.reshape((N, T, 2, 25, 3)).transpose(0, 4, 1, 3, 2)
+        N, T, D = self.data.shape
+
+        # infer number of persons from feature dimension
+        # D = M * 25 * 3
+        M = D // (25 * 3)
+        assert D == M * 25 * 3, f"Invalid feature dimension D={D}"
+
+        self.data = self.data.reshape((N, T, M, 25, 3)).transpose(0, 4, 1, 3, 2)
+
+
 
     def get_mean_map(self):
         data = self.data
