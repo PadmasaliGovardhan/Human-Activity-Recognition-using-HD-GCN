@@ -61,3 +61,6 @@ data/
 tmp/
 cache/
 !data/**/.gitkeep
+
+*.pt
+work_dir/
