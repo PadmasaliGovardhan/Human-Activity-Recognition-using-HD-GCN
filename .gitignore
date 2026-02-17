@@ -50,10 +50,19 @@ data/
 
 # ================================
 # Model Checkpoints
-# ================================
-*.pth
-*.pt
+# ===============================
 *.ckpt
+
+# Ignore datasets
+data/
+*.npz
+*.npy
+*.pkl
+
+# Ignore checkpoints EXCEPT final model
+*.pth
+*.ckpt
+
 
 # ================================
 # Temporary Files
