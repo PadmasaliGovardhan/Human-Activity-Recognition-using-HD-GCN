@@ -64,3 +64,9 @@ cache/
 
 *.pt
 work_dir/
+
+
+venv/
+__pycache__/
+*.pyc
+data/ntu/NTU60_CS.npz
