@@ -62,9 +62,6 @@ tmp/
 cache/
 !data/**/.gitkeep
 
-*.pt
-work_dir/
-
 
 venv/
 __pycache__/
