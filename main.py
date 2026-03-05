@@ -281,6 +281,7 @@ class Processor():
         self.model.eval()
         loader = self.data_loader['test']
         correct, total = 0, 0
+        score_frag = []
 
         with torch.no_grad():
             for data, label, _ in tqdm(loader):
@@ -289,12 +290,18 @@ class Processor():
 
                 output = self.model(data)
                 pred = output.argmax(1)
+                score_frag.append(output.data.cpu().numpy())
 
                 correct += (pred == label).sum().item()
                 total += label.size(0)
 
         acc = correct / total
         self.print_log(f'Validation accuracy: {acc*100:.2f}%')
+        if self.arg.save_score:
+        	score = np.concatenate(score_frag)
+        	score_dict = dict(zip(self.data_loader['test'].dataset.sample_name, score))
+        	with open(os.path.join(self.arg.work_dir, 'score.pkl'), 'wb') as f:
+        		pickle.dump(score_dict, f)
         return acc
 
     # ------------------------------------------------

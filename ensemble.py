@@ -28,7 +28,7 @@ if __name__ == "__main__":
                         default=True)
     parser.add_argument('--CoM-21',
                         type=str2bool,
-                        default=True)
+                        default=False)
     parser.add_argument('--CoM-1',
                         type=str2bool,
                         default=True)
@@ -50,10 +50,11 @@ if __name__ == "__main__":
         elif 'xset' in arg.dataset:
             npz_data = np.load('./data/' + 'ntu120/' + 'NTU120_CSet.npz')
             label = np.where(npz_data['y_test'] > 0)[1]
+    
     elif 'ntu' in arg.dataset:
         if 'xsub' in arg.dataset:
             npz_data = np.load('./data/' + 'ntu/' + 'NTU60_CS.npz')
-            label = np.where(npz_data['y_test'] > 0)[1]
+            label = npz_data['y_test']
         elif 'xview' in arg.dataset:
             npz_data = np.load('./data/' + 'ntu/' + 'NTU60_CV.npz')
             label = np.where(npz_data['y_test'] > 0)[1]
@@ -63,30 +64,30 @@ if __name__ == "__main__":
     dir_cnt = 0
 
     if arg.CoM_1:
-        with open(os.path.join(arg.main_dir, 'joint_CoM_1/', 'epoch1_test_score.pkl'), 'rb') as r1:
+        with open(os.path.join(arg.main_dir, 'joint_CoM_1/', 'score.pkl'), 'rb') as r1:
             r1 = list(pickle.load(r1).items())
-        with open(os.path.join(arg.main_dir, 'bone_CoM_1/', 'epoch1_test_score.pkl'), 'rb') as r2:
+        with open(os.path.join(arg.main_dir, 'bone_CoM_1/', 'score.pkl'), 'rb') as r2:
             r2 = list(pickle.load(r2).items())
         dir_cnt += 2
 
     if arg.CoM_2:
-        with open(os.path.join(arg.main_dir, 'joint_CoM_2/', 'epoch1_test_score.pkl'), 'rb') as r3:
+        with open(os.path.join(arg.main_dir, 'joint_CoM_2/', 'score.pkl'), 'rb') as r3:
             r3 = list(pickle.load(r3).items())
-        with open(os.path.join(arg.main_dir, 'bone_CoM_2/', 'epoch1_test_score.pkl'), 'rb') as r4:
+        with open(os.path.join(arg.main_dir, 'bone_CoM_2/', 'score.pkl'), 'rb') as r4:
             r4 = list(pickle.load(r4).items())
         dir_cnt += 2
         
     if arg.CoM_21:
         if 'ntu' in arg.dataset:
-            with open(os.path.join(arg.main_dir, 'joint_CoM_21/' 'epoch1_test_score.pkl'), 'rb') as r5:
+            with open(os.path.join(arg.main_dir, 'joint_CoM_21/' 'score.pkl'), 'rb') as r5:
                 r5 = list(pickle.load(r5).items())
-            with open(os.path.join(arg.main_dir, 'bone_CoM_21/', 'epoch1_test_score.pkl'), 'rb') as r6:
+            with open(os.path.join(arg.main_dir, 'bone_CoM_21/', 'score.pkl'), 'rb') as r6:
                 r6 = list(pickle.load(r6).items())
             dir_cnt += 2
         elif 'UCLA' in arg.dataset:
-            with open(os.path.join(arg.main_dir, 'joint_CoM_3/' 'epoch1_test_score.pkl'), 'rb') as r5:
+            with open(os.path.join(arg.main_dir, 'joint_CoM_3/' 'score.pkl'), 'rb') as r5:
                 r5 = list(pickle.load(r5).items())
-            with open(os.path.join(arg.main_dir, 'bone_CoM_3/', 'epoch1_test_score.pkl'), 'rb') as r6:
+            with open(os.path.join(arg.main_dir, 'bone_CoM_3/', 'score.pkl'), 'rb') as r6:
                 r6 = list(pickle.load(r6).items())
             dir_cnt += 2
 
